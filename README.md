@@ -1,6 +1,6 @@
-# @loopback/example-todo
+# Commercial Paper Loopback 
 
-This is the basic tutorial for getting started with Loopback 4!!
+This is an application that acts as a front end for interacting with the commercial paper smart contract. 
 
 ## Overview
 
