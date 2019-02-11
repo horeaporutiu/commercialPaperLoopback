@@ -37,7 +37,7 @@ export class IssueController {
     console.log(networkObj)
 
     let dataForIssue = {
-      function: 'invokeSmartContract',
+      function: 'issue',
       issuer: requestBody.issuer,
       paperNumber: requestBody.paperNumber,
       issueDateTime: requestBody.issueDateTime,
@@ -49,7 +49,7 @@ export class IssueController {
     var result = await blockchainClient.issue(dataForIssue);
 
     console.log('result from blockchainClient.submitTransaction in controller: ')
-    console.log(result.toString())
+    console.log(result)
 
     return result;       
   }
