@@ -49,8 +49,8 @@ export class IssueController {
     var result = await blockchainClient.issue(dataForIssue);
 
     console.log('result from blockchainClient.submitTransaction in controller: ')
-    console.log(result)
-
+    // console.log(result)
+    console.log(Buffer.from(JSON.parse(result)).toString())
     return result;       
   }
 
