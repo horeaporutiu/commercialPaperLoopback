@@ -1,5 +1,3 @@
-import { Issue } from "./models";
-
 const yaml = require('js-yaml');
 const { FileSystemWallet, Gateway } = require('fabric-network');
 const fs = require('fs');
@@ -45,7 +43,8 @@ export module BlockChainModule {
 
 
         let networkObj = {
-          contract: contract
+          contract: contract,
+          network: network
         };
 
         return networkObj;
@@ -61,10 +60,10 @@ export module BlockChainModule {
     }
 
     async redeem(args: any) {
-        //call addMember smart contract function
-        //$TODO: dynamically call submitTransaction
+
         let response = await args.contract.submitTransaction(args.function,
-            args.issuer, args.paperNumber, args.redeemingOwner, args.redeemDateTime );
+          args.issuer, args.paperNumber, args.redeemingOwner, args.redeemDateTime 
+        );
 
         return response;
       }     

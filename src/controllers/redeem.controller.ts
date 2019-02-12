@@ -22,15 +22,25 @@ let blockchainClient = new BlockChainModule.BlockchainClient();
 export class RedeemController {
   constructor() {}
 
-  @post('/redeem', )
-  async createIssue(@requestBody() requestBody: Redeem): Promise<any> {
+  @post('/redeem', {
+    responses: {
+      '200': {
+        description: 'Todo model instance',
+        content: {'application/json': {schema: {'x-ts-type': Redeem}}},
+      },
+    },
+  })
+  async createIssue(@requestBody() requestBody: Redeem): Promise<Redeem> {
     console.log('Buy, requestBody: ')
     console.log(requestBody)
 
     let networkObj = await blockchainClient.connectToNetwork();
     if (!networkObj) {
       let errString = 'Error connecting to network';
-      return errString;
+      let redeem = new Redeem({issuer: errString, paperNumber: errString, redeemingOwner: errString,
+        redeemDateTime: errString
+      });
+      return redeem;
     }
     console.log('newtork obj: ')
     console.log(networkObj)
@@ -44,19 +54,14 @@ export class RedeemController {
       contract: networkObj.contract
     };
 
-    var result = await blockchainClient.redeem(dataForRedeem);
+    var resultAsBuffer = await blockchainClient.issue(dataForRedeem);
 
     console.log('result from blockchainClient.submitTransaction in controller: ')
-    console.log(result.toString())
-
-    return result;       
+    let result = JSON.parse(Buffer.from(JSON.parse(resultAsBuffer)).toString())
+    let issue = new Redeem({issuer: result.issuer, paperNumber: result.paperNumber, redeemingOwner: result.redeemingOwner,
+      redeemDateTime: result.redeemDateTime 
+    });
+    return issue;           
   }
 
-  // @get('/buy/{id}')
-  // async findTodoById(
-  //   @param.path.number('id') id: number,
-  //   @param.query.boolean('items') items?: boolean,
-  // ): Promise<Buy> {
-  //   throw new Error('Not implemented');
-  // }
 }

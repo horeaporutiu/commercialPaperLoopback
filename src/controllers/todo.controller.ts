@@ -15,105 +15,87 @@
 //   put,
 //   requestBody,
 // } from '@loopback/rest';
-// import {Todo} from '../models';
-// import {TodoRepository} from '../repositories';
-// import {GeocoderService} from '../services';
+// import { Issue } from '../models';
 
-// export class TodoController {
+// import { BlockChainModule } from '../blockchainClient';
+
+// let blockchainClient = new BlockChainModule.BlockchainClient();
+
+// export class QueryController {
 //   constructor(
-//     @repository(TodoRepository) protected todoRepo: TodoRepository,
-//     @inject('services.GeocoderService') protected geoService: GeocoderService,
 //   ) {}
+ 
+//   // @operation('get', '/Regulator/{id}')
+//   async queryFindById(@param({ name: 'id', in: 'path' }) id: string, @param({ name: 'filter', in: 'query' }) filter: string): Promise<Regulator> {
 
-//   @post('/todos', {
-//     responses: {
-//       '200': {
-//         description: 'Todo model instance',
-//         content: {'application/json': {schema: {'x-ts-type': Todo}}},
-//       },
-//     },
-//   })
-//   async createTodo(@requestBody() todo: Todo): Promise<Todo> {
-//     if (todo.remindAtAddress) {
-//       // TODO(bajtos) handle "address not found"
-//       const geo = await this.geoService.geocode(todo.remindAtAddress);
-//       // Encode the coordinates as "lat,lng" (Google Maps API format). See also
-//       // https://stackoverflow.com/q/7309121/69868
-//       // https://gis.stackexchange.com/q/7379
-//       todo.remindAtGeo = `${geo[0].y},${geo[0].x}`;
+//     let networkObj = await blockchainClient.connectToNetwork();
+
+//     if (!networkObj) {
+//       let errString = 'Error connecting to network';
+//       let issue = new Issue({issuer: errString, paperNumber: errString, issueDateTime: errString, maturityDateTime: errString });
+//       return issue;
 //     }
-//     return await this.todoRepo.create(todo);
+    
+//     let dataForQuery = {
+//       function: 'query',
+//       id: id,
+//       contract: networkObj.contract,
+//       network: networkObj.network
+//     };
+
+//     console.log('before blockchainClient.queryByKey')
+//     let result = await blockchainClient.queryByKey(dataForQuery);
+//     console.log(`lookup by key ${id}`);
+//     console.log('result after calling client.queryByKey: ')
+//     console.log(result)
+//     if (result.id) {
+//       var rez = JSON.parse(result.toString());
+//       console.log(rez)
+//       let address = new Address({ city: rez.address, country: rez.address, street: rez.address });
+//       let regulator = new Regulator({ regulatorId: rez.id, organization: rez.organization, address: address });
+//       return regulator;
+//     }
+//     return result;
 //   }
 
-//   @get('/todos/{id}', {
+//   @get('/query/{id}', {
 //     responses: {
 //       '200': {
 //         description: 'Todo model instance',
-//         content: {'application/json': {schema: {'x-ts-type': Todo}}},
+//         content: {'application/json': {schema: {'x-ts-type': Issue}}},
 //       },
 //     },
 //   })
-//   async findTodoById(
-//     @param.path.number('id') id: number,
+//   async findById(
+//     @param.path.number('id') id: string,
 //     @param.query.boolean('items') items?: boolean,
-//   ): Promise<Todo> {
-//     return await this.todoRepo.findById(id);
+//   ): Promise<Issue> {
+
+//     let networkObj = await blockchainClient.connectToNetwork();
+//     let dataForQuery = {
+//       function: 'query',
+//       id: id,
+//       contract: networkObj.contract,
+//       network: networkObj.network
+//     };
+
+//     console.log('before blockchainClient.queryByKey')
+//     let result = await blockchainClient.queryByKey(dataForQuery);
+//     console.log(`lookup by key ${id}`);
+//     console.log('result after calling client.queryByKey: ')
+//     console.log(result)
+//     if (result.id) {
+//       var rez = JSON.parse(result.toString());
+//       console.log(rez)
+//       let address = new Address({ city: rez.address, country: rez.address, street: rez.address });
+//       let regulator = new Regulator({ regulatorId: rez.id, organization: rez.organization, address: address });
+//       return regulator;
+//     }
+//     return result;
+
+//     // return await this.todoRepo.findById(id);
 //   }
 
-//   @get('/todos', {
-//     responses: {
-//       '200': {
-//         description: 'Array of Todo model instances',
-//         content: {
-//           'application/json': {
-//             schema: {type: 'array', items: {'x-ts-type': Todo}},
-//           },
-//         },
-//       },
-//     },
-//   })
-//   async findTodos(
-//     @param.query.object('filter', getFilterSchemaFor(Todo)) filter?: Filter,
-//   ): Promise<Todo[]> {
-//     return await this.todoRepo.find(filter);
-//   }
 
-//   @put('/todos/{id}', {
-//     responses: {
-//       '204': {
-//         description: 'Todo PUT success',
-//       },
-//     },
-//   })
-//   async replaceTodo(
-//     @param.path.number('id') id: number,
-//     @requestBody() todo: Todo,
-//   ): Promise<void> {
-//     await this.todoRepo.replaceById(id, todo);
-//   }
 
-//   @patch('/todos/{id}', {
-//     responses: {
-//       '204': {
-//         description: 'Todo PATCH success',
-//       },
-//     },
-//   })
-//   async updateTodo(
-//     @param.path.number('id') id: number,
-//     @requestBody() todo: Todo,
-//   ): Promise<void> {
-//     await this.todoRepo.updateById(id, todo);
-//   }
-
-//   @del('/todos/{id}', {
-//     responses: {
-//       '204': {
-//         description: 'Todo DELETE success',
-//       },
-//     },
-//   })
-//   async deleteTodo(@param.path.number('id') id: number): Promise<void> {
-//     await this.todoRepo.deleteById(id);
-//   }
 // }

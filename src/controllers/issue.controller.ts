@@ -22,8 +22,15 @@ let blockchainClient = new BlockChainModule.BlockchainClient();
 export class IssueController {
   constructor() {}
 
-  @post('/issue', )
-  async createIssue(@requestBody() requestBody: Issue): Promise<any> {
+  @post('/issue', {
+    responses: {
+      '200': {
+        description: 'Todo model instance',
+        content: {'application/json': {schema: {'x-ts-type': Issue}}},
+      },
+    },
+  })
+  async createIssue(@requestBody() requestBody: Issue): Promise<Issue> {
     console.log('Buy, requestBody: ')
     console.log(requestBody)
 
@@ -31,7 +38,8 @@ export class IssueController {
     let networkObj = await blockchainClient.connectToNetwork();
     if (!networkObj) {
       let errString = 'Error connecting to network';
-      return errString;
+      let issue = new Issue({issuer: errString, paperNumber: errString, issueDateTime: errString, maturityDateTime: errString });
+      return issue;
     }
     console.log('newtork obj: ')
     console.log(networkObj)
@@ -46,19 +54,14 @@ export class IssueController {
       contract: networkObj.contract
     };
 
-    var result = await blockchainClient.issue(dataForIssue);
+    var resultAsBuffer = await blockchainClient.issue(dataForIssue);
 
     console.log('result from blockchainClient.submitTransaction in controller: ')
-    // console.log(result)
-    console.log(Buffer.from(JSON.parse(result)).toString())
-    return result;       
+    let result = JSON.parse(Buffer.from(JSON.parse(resultAsBuffer)).toString())
+    let issue = new Issue({issuer: result.issuer, paperNumber: result.paperNumber, issueDateTime: result.issueDateTime,
+      maturityDateTime: result.maturityDateTime 
+    });
+    return issue;       
   }
 
-  // @get('/buy/{id}')
-  // async findTodoById(
-  //   @param.path.number('id') id: number,
-  //   @param.query.boolean('items') items?: boolean,
-  // ): Promise<Buy> {
-  //   throw new Error('Not implemented');
-  // }
 }

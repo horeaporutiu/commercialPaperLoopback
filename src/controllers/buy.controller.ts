@@ -22,20 +22,30 @@ let blockchainClient = new BlockChainModule.BlockchainClient();
 export class BuyController {
   constructor() {}
 
-  @post('/buy', )
-  async createBuy(@requestBody() requestBody: Buy): Promise<any> {
+  @post('/buy',{
+    responses: {
+      '200': {
+        description: 'Todo model instance',
+        content: {'application/json': {schema: {'x-ts-type': Buy}}},
+      },
+    },
+  })
+  async createBuy(@requestBody() requestBody: Buy): Promise<Buy> {
     console.log('Buy, requestBody: ')
     console.log(requestBody)
     let networkObj = await blockchainClient.connectToNetwork();
     if (!networkObj) {
       let errString = 'Error connecting to network';
-      return errString;
+      let buy = new Buy({issuer: errString, paperNumber: errString, currentOwner: errString, newOwner: errString,
+        price: errString, purchaseDateTime: errString
+      });
+      return buy;
     }
     console.log('newtork obj: ')
     console.log(networkObj)
     // dateStr = dateStr.toDateString();
     let dataForBuy = {
-      function: 'invokeSmartContract',
+      function: 'buy',
       issuer: requestBody.issuer,
       paperNumber: requestBody.paperNumber,
       currentOwner: requestBody.currentOwner,
@@ -45,19 +55,14 @@ export class BuyController {
       contract: networkObj.contract
     };
 
-    var result = await blockchainClient.buy(dataForBuy);
+    var resultAsBuffer = await blockchainClient.issue(dataForBuy);
 
     console.log('result from blockchainClient.submitTransaction in controller: ')
-    console.log(result.toString())
-
-    return result;       
+    let result = JSON.parse(Buffer.from(JSON.parse(resultAsBuffer)).toString())
+    let buy = new Buy({issuer: result.issuer, paperNumber: result.paperNumber, currentOwner: result.currentOwner,
+      newOwner: result.currentOwner, price: result.price, purchaseDateTime: result.purchaseDateTime 
+    });
+    return buy;          
   }
 
-  // @get('/buy/{id}')
-  // async findTodoById(
-  //   @param.path.number('id') id: number,
-  //   @param.query.boolean('items') items?: boolean,
-  // ): Promise<Buy> {
-  //   throw new Error('Not implemented');
-  // }
 }
