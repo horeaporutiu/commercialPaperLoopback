@@ -55,7 +55,7 @@ export class BuyController {
       contract: networkObj.contract
     };
 
-    var resultAsBuffer = await blockchainClient.issue(dataForBuy);
+    var resultAsBuffer = await blockchainClient.buy(dataForBuy);
 
     console.log('result from blockchainClient.submitTransaction in controller: ')
     let result = JSON.parse(Buffer.from(JSON.parse(resultAsBuffer)).toString())

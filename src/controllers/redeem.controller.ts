@@ -54,7 +54,7 @@ export class RedeemController {
       contract: networkObj.contract
     };
 
-    var resultAsBuffer = await blockchainClient.issue(dataForRedeem);
+    var resultAsBuffer = await blockchainClient.redeem(dataForRedeem);
 
     console.log('result from blockchainClient.submitTransaction in controller: ')
     let result = JSON.parse(Buffer.from(JSON.parse(resultAsBuffer)).toString())

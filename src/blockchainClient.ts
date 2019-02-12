@@ -61,17 +61,23 @@ export module BlockChainModule {
 
     async redeem(args: any) {
 
-        let response = await args.contract.submitTransaction(args.function,
-          args.issuer, args.paperNumber, args.redeemingOwner, args.redeemDateTime 
-        );
+      console.log('args for redeem: ')
+      console.log(args)
 
-        return response;
-      }     
-    
+      let response = await args.contract.submitTransaction(args.function,
+        args.issuer, args.paperNumber, args.redeemingOwner, args.redeemDateTime
+      );
+
+      return response;
+    }
 
 
-    
+
+
     async issue(args: any) {
+
+      console.log('args for issue: ')
+      console.log(args)
 
       let response = await args.contract.submitTransaction(args.function,
         args.issuer, args.paperNumber, args.issueDateTime, args.maturityDateTime,
@@ -84,13 +90,16 @@ export module BlockChainModule {
 
     async buy(args: any) {
 
+      console.log('args for buy: ')
+      console.log(args)
+
       let response = await args.contract.submitTransaction(args.function,
         args.issuer, args.paperNumber, args.currentOwner, args.newOwner,
         args.price, args.purchaseDateTime
       );
 
       return response;
-            
+
     }
 
 

@@ -131,7 +131,15 @@ the `/post/issue` method. Note that all CRUD methods can be implemented in a sim
 manner to `/post/issue`. 
 
 In our `async createIssue(@requestBody() requestBody: Issue): Promise<Issue> {` method, 
+we first connect to our Hyperledger Fabric network by telling our application where 
+our peers, orderers, and certificate authority are running - this is all done by calling the 
+`blockchainClient.connectToNetwork()` function, which we have imported at the top of the 
+file. To find the 
 
+
+ Next, we look for a deployed 
+contract such as the paper net contract. Finally, we call the appropriate method in the 
+deployed contract, and send that response back to the user. 
 #### Connecting the UI to the Smart Contract - the Blockchain Client
 
 

@@ -57,6 +57,7 @@ export class IssueController {
     var resultAsBuffer = await blockchainClient.issue(dataForIssue);
 
     console.log('result from blockchainClient.submitTransaction in controller: ')
+    console.log('result from blockchainClient.submitTransaction in controller: ')
     let result = JSON.parse(Buffer.from(JSON.parse(resultAsBuffer)).toString())
     let issue = new Issue({issuer: result.issuer, paperNumber: result.paperNumber, issueDateTime: result.issueDateTime,
       maturityDateTime: result.maturityDateTime 
