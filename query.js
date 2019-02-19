@@ -37,7 +37,7 @@ async function main() {
     console.log('Connected to mychannel. ');
 
     // Get the contract we have installed on the peer
-    const contract = await network.getContract('papercontract');
+    const contract = await network.getContract('blockchainbean2');
 
     console.log('\nSubmit hello world transaction.');
 
