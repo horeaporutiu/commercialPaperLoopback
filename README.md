@@ -3,6 +3,13 @@
 This is an application that acts as a front end for interacting with the commercial paper smart contract
 from the Hyperledger Fabric 1.4 documentation. 
 
+### Steps
+
+1.  Clone this project into your local directory 
+2.  run `npm install` in the newly cloned directory
+3.  run `npm start` in the newly cloned directory
+3.  Go to http://127.0.0.1:3000/explorer/ and interact with the contract. 
+
 ## Overview
 This application shows how to easily scaffold and get started creating a front-end application to interact with 
 your deployed smart contract. This application is an extension to the Hyperledger paper contract developer tutorial,
@@ -145,14 +152,8 @@ deployed contract, and send that response back to the user.
 
 
 
-### Steps
 
-1.  Clone this project into your local directory 
-2.  run `npm install` in the newly cloned directory
-3.  run `npm start` in the newly cloned directory
-3.  Go to http://127.0.0.1:3000/explorer/ and interact with the contract. 
 
-### Architecture
 
 
 
