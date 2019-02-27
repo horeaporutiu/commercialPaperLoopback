@@ -3,7 +3,7 @@
 This is an application that acts as a front end for interacting 
 with the 
 [commercial paper smart contract tutorial](https://https://hyperledger-fabric.readthedocs.io/en/release-1.4/tutorial/commercial_paper.html)
-from the Hyperledger Fabric 1.4 documentation. 
+from the Hyperledger Fabric 1.4 documentation. Here is the [video tutorial](https://www.youtube.com/watch?v=1Evy4Zuppm0) that accompanies this repo. 
 <br>
 
 The finished application looks like this:
