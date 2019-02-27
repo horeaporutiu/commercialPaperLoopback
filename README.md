@@ -106,7 +106,7 @@ export class IssueController {
       let issue = new Issue({issuer: errString, paperNumber: errString, issueDateTime: errString, maturityDateTime: errString });
       return issue;
     }
-    console.log('newtork obj: ')
+    console.log('network obj: ')
     console.log(networkObj)
 
     let dataForIssue = {
