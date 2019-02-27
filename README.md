@@ -3,7 +3,14 @@
 This is an application that acts as a front end for interacting 
 with the 
 [commercial paper smart contract tutorial](https://https://hyperledger-fabric.readthedocs.io/en/release-1.4/tutorial/commercial_paper.html)
-from the Hyperledger Fabric 1.4 documentation. Note, to use this
+from the Hyperledger Fabric 1.4 documentation. 
+<br>
+
+The finished application looks like this:
+
+![packageFile](/docs/loopbackApp.png)
+<br>
+Note, to use this
 app, you must have the commercial paper contract deployed 
 as **papercontract** on your Hyperledger Fabric network. I.e.
 If you are using the [IBM Blockchain VSCode extension](https://marketplace.visualstudio.com/items?itemName=IBMBlockchain.ibm-blockchain-platform), your instantiated
@@ -12,9 +19,7 @@ contract list should look something like this (i.e. must have
 
 ![packageFile](/docs/papercontract.png)
 
-The finished application looks like this:
 
-![packageFile](/docs/loopbackApp.png)
 
 ### Steps
 
