@@ -3,6 +3,10 @@
 This is an application that acts as a front end for interacting with the commercial paper smart contract
 from the Hyperledger Fabric 1.4 documentation. 
 
+The finished application looks like this:
+
+![packageFile](/docs/loopbackApp.png)
+
 ### Steps
 
 1.  Clone this project into your local directory 
